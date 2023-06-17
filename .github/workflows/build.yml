@@ -10,7 +10,7 @@ on:
         type: string
 
 jobs:   
-  build:
+  build-legacy:
     name: kernel for MiyooCFW (uClibc)
     runs-on: ubuntu-22.04
     container:
@@ -71,7 +71,7 @@ jobs:
         if-no-files-found: error # 'error', 'warn', 'ignore'; defaults to `warn`
         
           
-  build:
+  build-modern:
     name: kernel for MiyooCFW (musl)
     runs-on: ubuntu-22.04
     container:
