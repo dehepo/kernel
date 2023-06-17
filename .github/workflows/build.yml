@@ -60,7 +60,17 @@ jobs:
         mv drivers/video/fbdev/rm68090fb.ko dist/
         mv drivers/video/fbdev/miyoo-tvout.ko dist/
         mv drivers/usb/gadget/legacy/g_acm_ms.ko dist/
+
         
+    - run: find ${{ inputs.submodule || '.' }}/dist
+    
+    - uses: actions/upload-artifact@v3
+      with:
+        name: kernel (uClibc)
+        path: ${{ inputs.submodule || '.' }}/dist/*
+        if-no-files-found: error # 'error', 'warn', 'ignore'; defaults to `warn`
+        
+          
   build:
     name: kernel for MiyooCFW (musl)
     runs-on: ubuntu-22.04
@@ -118,14 +128,5 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: kernel (musl)
-        path: ${{ inputs.submodule || '.' }}/dist/*
-        if-no-files-found: error # 'error', 'warn', 'ignore'; defaults to `warn`
-
-        
-    - run: find ${{ inputs.submodule || '.' }}/dist
-    
-    - uses: actions/upload-artifact@v3
-      with:
-        name: kernel (uClibc)
         path: ${{ inputs.submodule || '.' }}/dist/*
         if-no-files-found: error # 'error', 'warn', 'ignore'; defaults to `warn`
