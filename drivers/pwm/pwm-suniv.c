@@ -109,6 +109,7 @@ struct suniv_pwm_chip {
 
 static int major = -1;
 static int motor_ver = 3;
+module_param(motor_ver,int,0660);
 static struct cdev mycdev;
 static struct class *myclass = NULL;
 
@@ -349,8 +350,7 @@ static int get_motor_pin(int ver)
   switch(ver){
   case 1:
     return ((32 * 4) + 1);
-  case 4:
-  case 3:
+  case 2: case 3: case 4:
     return ((32 * 4) + 12);
   }
   return -1;
@@ -483,7 +483,7 @@ static int suniv_pwm_probe(struct platform_device *pdev)
   cdev_init(&mycdev, &myfops);
   cdev_add(&mycdev, major, 1); 
 
-  motor_ver = 1;
+// motor_ver = 1;
   do_gpio_request(motor_ver);
   return 0;
 }
