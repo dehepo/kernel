@@ -640,11 +640,11 @@ static int myfb_check_var(struct fb_var_screeninfo *var, struct fb_info *info)
 
     var->transp.offset = 0;
     var->transp.length = 0;
-    var->red.offset = 11;
+    var->red.offset = 0;
     var->red.length = 5;
     var->green.offset = 5;
     var->green.length = 6;
-    var->blue.offset = 0;
+    var->blue.offset = 11;
     var->blue.length = 5;
     var->red.msb_right = 0;
     var->green.msb_right = 0;
