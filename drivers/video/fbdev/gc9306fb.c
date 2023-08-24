@@ -215,7 +215,7 @@ static void init_lcd(void)
     lcdc_wr_cmd(0xef);
     lcdc_wr_cmd(0x36);
     //  lcdc_wr_dat(0x48);      // 原始方向：    Y=0 X=1 V=0 L=0     0x48
-    lcdc_wr_dat(0x48);
+    lcdc_wr_dat(0x28);
     lcdc_wr_cmd(0x3a);
     lcdc_wr_dat(0x05);
 
