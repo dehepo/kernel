@@ -2551,6 +2551,15 @@ config FB_HX8347D
 	help
 	  Framebuffer driver for HX8347D SLCD panel.
 
+config FB_FC3000
+	tristate "FC3000 SLCD framebuffer support"
+	depends on FB
+	select FB_SYS_FILLRECT
+	select FB_SYS_COPYAREA
+	select FB_SYS_IMAGEBLIT
+	help
+	  Framebuffer driver for FC3000 SLCD panel.
+
 config FB_TVOUT
 tristate "TVOUT support"
 depends on FB
