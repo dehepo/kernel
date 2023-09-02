@@ -50,7 +50,7 @@
 
 #define DEBUG_LOG 0
 
-extern int suniv_variant;
+extern int miyoo_ver;
 
 static int l2r2 = 0;
 static int lock = 0;
@@ -595,7 +595,7 @@ static int __init kbd_init(void)
 {
     uint32_t ret = 0;
 
-    if(suniv_variant == 0) {
+    if(miyoo_ver == 0) {
         I_UP     = ((32 * 4) + 2);
         I_DOWN   = ((32 * 4) + 3);
         I_LEFT   = ((32 * 4) + 4);
@@ -613,7 +613,7 @@ static int __init kbd_init(void)
         I_R2     = ((32 * 3) + 21);
         do_input_request(I_MENU, "menu");
     }
-    else if(suniv_variant == 1) {
+    else if(miyoo_ver == 1) {
         I_UP     = ((32 * 0) + 0);
         I_DOWN   = ((32 * 4) + 2);
         I_LEFT   = ((32 * 4) + 4);
@@ -631,7 +631,7 @@ static int __init kbd_init(void)
         I_R2     = ((32 * 2) + 2);
         do_input_request(I_MENU, "menu");
     }
-    else if(suniv_variant == 2 || suniv_variant == 5) {
+    else if(miyoo_ver == 2 || miyoo_ver == 5) {
         I_UP     = ((32 * 5) + 0);	//PF0
         I_DOWN   = ((32 * 5) + 5);	//PF5
         I_LEFT   = ((32 * 5) + 4);	//PF4
@@ -650,7 +650,7 @@ static int __init kbd_init(void)
     //
     // FC3000 V1 TFT (Old Version)
     //
-    else if(suniv_variant == 3) {
+    else if(miyoo_ver == 3) {
         I_UP	= ((32 * 5) + 0);
         I_DOWN	= ((32 * 5) + 5);
         I_LEFT	= ((32 * 5) + 4);
@@ -671,7 +671,7 @@ static int __init kbd_init(void)
     //
     // FC3000 V2 IPS (WL-28H105-A1)
     //
-    else if(suniv_variant == 4) {
+    else if(miyoo_ver == 4) {
         I_UP     = ((32 * 5) + 0);	//PF0
         I_DOWN   = ((32 * 5) + 5);	//PF5
         I_LEFT   = ((32 * 5) + 4);	//PF4
@@ -722,23 +722,23 @@ static int __init kbd_init(void)
     mydev->id.bustype = BUS_HOST;
     ret = input_register_device(mydev);
 
-    if(suniv_variant == 0) {
+    if(miyoo_ver == 0) {
         setup_timer(&mytimer, pocketgo_handler, 0);
         printk("set pocketgo keypad handler\n");
     }
-    else if(suniv_variant == 1) {
+    else if(miyoo_ver == 1) {
         setup_timer(&mytimer, pocketgo_handler, 0);
         printk("set trimui keypad handler\n");
     }
-    else if(suniv_variant == 2 || suniv_variant == 5) {
+    else if(miyoo_ver == 2 || miyoo_ver == 5) {
         setup_timer(&mytimer, fc3000_handler, 0);
         printk("set fc3000 keypad handler\n");
     }
-    else if(suniv_variant == 3) {
+    else if(miyoo_ver == 3) {
         setup_timer(&mytimer, fc3000_old_handler, 0);
         printk("set fc3000 tft v1 (old version) keypad handler\n");
     }
-    else if(suniv_variant == 4) {
+    else if(miyoo_ver == 4) {
         setup_timer(&mytimer, fc3000_WL_28H105_A1_handler, 0);
         printk("set fc3000 ips v2 (WL-28H105-A1) keypad handler\n");
     }
