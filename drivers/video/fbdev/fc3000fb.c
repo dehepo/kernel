@@ -1669,6 +1669,6 @@ static void __exit fb_cleanup(void)
 module_init(fb_init);
 module_exit(fb_cleanup);
 
-MODULE_DESCRIPTION("framebuffer driver for allwinner suniv handheld");
+MODULE_DESCRIPTION("framebuffer driver for fc3000");
 MODULE_AUTHOR("Steward Fu <steward.fu@gmail.com>");
 MODULE_LICENSE("GPL");
