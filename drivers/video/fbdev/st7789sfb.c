@@ -324,118 +324,145 @@ static void init_lcd(void)
     suniv_setbits(iomm.lcdc + PE_DATA, (1 << 11));
     mdelay(150);
 
-    //
-    // Settings found on few websites, (xx) means default
-    //
-    lcdc_wr_cmd(swapRB(0x01));    //SW Reset
-    lcdc_wr_cmd(swapRB(0x28));    //Display off
-    lcdc_wr_cmd(swapRB(0x11));    //Disable sleep mode
-
-    lcdc_wr_cmd(swapRB(0x36));    //MADCTL - Memory Data Access Control
-    lcdc_wr_dat(swapRB(0x6C));    //D7-D0 = MY MX MV ML RGB MH ** ** = 01101100
-
-    lcdc_wr_cmd(swapRB(0x3A));    //COLMOD - Interface Pixel format
-    lcdc_wr_dat(swapRB(0x55));    //D7-D0 = 01010101 = 0x55 = 65k color, 16bit
-
-    lcdc_wr_cmd(swapRB(0xB2));    //PORCTRL - Porch Setting
-    lcdc_wr_dat(swapRB(0x0C));    //BPA
-    lcdc_wr_dat(swapRB(0x0C));    //FPA
-    lcdc_wr_dat(swapRB(0x00));    //PSEN
-    lcdc_wr_dat(swapRB(0x33));    //FPB
-    lcdc_wr_dat(swapRB(0x33));    //BPC
-
-    lcdc_wr_cmd(swapRB(0xB7));    //GCTRL - Gate control
-    lcdc_wr_dat(swapRB(0x35));    //D7=0,D6-D4=VGHS,D3=0,D2-D0=VGLS
-
-    lcdc_wr_cmd(swapRB(0xBB));    //VCOMS - Vcom Setting
-    lcdc_wr_dat(swapRB(0x19));    //D7-D6=0,D5-D0=VCOM (2B)
-
-    lcdc_wr_cmd(swapRB(0xC0));    //LCMCTRL - LCM Control
-    lcdc_wr_dat(swapRB(0x0C));    //XOR command 0x36 paramters
-
-    lcdc_wr_cmd(swapRB(0xC2));    //VDVVRHEN - VDV and VRH command enable
-    lcdc_wr_dat(swapRB(0x01));    //enable/disable
-    lcdc_wr_dat(swapRB(0xFF));    //
-
-    lcdc_wr_cmd(swapRB(0xC3));    //VRHS - VRH set
-    lcdc_wr_dat(swapRB(0x10));    // (11)
-
-    lcdc_wr_cmd(swapRB(0xC4));    //VDVS - VDV set
-    lcdc_wr_dat(swapRB(0x20));    //
-
-    lcdc_wr_cmd(swapRB(0xC6));    // FPS
-    lcdc_wr_dat(swapRB(0x0F));    // 0F=60, 0B=69, 0A=72, 15=50
-
-    lcdc_wr_cmd(swapRB(0xD0));    //PWCTRL1 - Power control 1
-    lcdc_wr_dat(swapRB(0xA4));    //
-    lcdc_wr_dat(swapRB(0xA1));    //D7-D6=AVDD,D5-D4=AVCL,D3-D2=0,D1-D0=VDS
-
-    //
-    // Gamma is set by dafault also at reset
-    //
-    /*
-    lcdc_wr_cmd(swapRB(0xE0));    //PVGAMCTRL - Positive Power Gamma control
-    lcdc_wr_dat(swapRB(0xD0));
-    lcdc_wr_dat(swapRB(0x00));
-    lcdc_wr_dat(swapRB(0x02));    // (05)
-    lcdc_wr_dat(swapRB(0x07));    // (0E)
-    lcdc_wr_dat(swapRB(0x0A));    // (15)
-    lcdc_wr_dat(swapRB(0x28));    // (0D)
-    lcdc_wr_dat(swapRB(0x32));    // (37)
-    lcdc_wr_dat(swapRB(0x44));    // (43)
-    lcdc_wr_dat(swapRB(0x42));    // (47)
-    lcdc_wr_dat(swapRB(0x06));    // (09)
-    lcdc_wr_dat(swapRB(0x0E));    // (15)
-    lcdc_wr_dat(swapRB(0x12));
-    lcdc_wr_dat(swapRB(0x14));    // (16)
-    lcdc_wr_dat(swapRB(0x17));    // (19)
-
-    lcdc_wr_cmd(swapRB(0xE1));    //NVGAMCTRL - Negative Power Gamma control
-    lcdc_wr_dat(swapRB(0xD0));
-    lcdc_wr_dat(swapRB(0x00));
-    lcdc_wr_dat(swapRB(0x02));    // (05)
-    lcdc_wr_dat(swapRB(0x07));    // (0D)
-    lcdc_wr_dat(swapRB(0x0A));    // (0C)
-    lcdc_wr_dat(swapRB(0x28));    // (06)
-    lcdc_wr_dat(swapRB(0x31));    // (2D)
-    lcdc_wr_dat(swapRB(0x54));    // (44)
-    lcdc_wr_dat(swapRB(0x47));    // (40)
-    lcdc_wr_dat(swapRB(0x0E));
-    lcdc_wr_dat(swapRB(0x1C));
-    lcdc_wr_dat(swapRB(0x17));    // (18)
-    lcdc_wr_dat(swapRB(0x1B));    // (16)
-    lcdc_wr_dat(swapRB(0x1E));    // (19)
-    */
-
-    lcdc_wr_cmd(swapRB(0x2A));    //CASET - Column Adress set
-    lcdc_wr_dat(swapRB(0x00));
-    lcdc_wr_dat(swapRB(0x00));
-    lcdc_wr_dat(swapRB(0x01));
-    lcdc_wr_dat(swapRB(0x3F));
-
-    lcdc_wr_cmd(swapRB(0x2B));    //RASET - Row Adress set
-    lcdc_wr_dat(swapRB(0x00));
-    lcdc_wr_dat(swapRB(0x00));
-    lcdc_wr_dat(swapRB(0x00));
-    lcdc_wr_dat(swapRB(0xEF));
-
-    //lcdc_wr_cmd(swapRB(0x55));    //Color Enhancement
-    //lcdc_wr_dat(swapRB(0xB3));
-
-    lcdc_wr_cmd(swapRB(0x51));
-    lcdc_wr_dat(swapRB(0xff));
-
-    lcdc_wr_cmd(swapRB(0x21));    //Invert Display
-    lcdc_wr_cmd(swapRB(0x2C));    //Enable Write Ram
-    //mdelay(500);
-
-    for(cc = 0; cc < (320 * 240); cc++) {
-        lcdc_wr_dat(0x00);
+    lcdc_wr_cmd(0x11);
+    mdelay(250);
+                  
+    lcdc_wr_cmd(0x36);
+    if (flip) {
+        lcdc_wr_dat(0x70); //screen direction //0x70 for 3.5, 0xB0 for pg
+    } else {
+        lcdc_wr_dat(0xB0); //screen direction //0x70 for 3.5, 0xB0 for pg
     }
-    lcdc_wr_cmd(swapRB(0x29));    //Display on
-    lcdc_wr_cmd(swapRB(0x2C));    //Enable Write Ram
-}
+//    lcdc_wr_cmd(0x3a);
+//    lcdc_wr_dat(0x05);
+      
+    lcdc_wr_cmd(0x2a);
+    lcdc_wr_dat(0x00);
+    lcdc_wr_dat(0x00);
+    lcdc_wr_dat(0x01);
+    lcdc_wr_dat(0x3f);
 
+    lcdc_wr_cmd(0x2b);
+    lcdc_wr_dat(0x00);
+    lcdc_wr_dat(0x00);
+    lcdc_wr_dat(0x00);
+    lcdc_wr_dat(0xef);
+        
+    // ST7789S Frame rate setting
+	lcdc_wr_cmd(0xb2);
+	if (tefix == 3) {
+		lcdc_wr_dat(8); // bp 0x0a
+		lcdc_wr_dat(122); // fp 0x0b
+    } else if (tefix == 2) {
+        lcdc_wr_dat(8); // bp 0x0a
+        lcdc_wr_dat(120); // fp 0x0b
+	} else if (tefix == 1) {
+		lcdc_wr_dat(90); // bp 0x0a
+		lcdc_wr_dat(20); // fp 0x0b
+	} else {
+        lcdc_wr_dat(9); // bp 0x0a
+        lcdc_wr_dat(10); // fp 0x0b
+    }
+		lcdc_wr_dat(0x00);        			
+		lcdc_wr_dat(0x33);
+		lcdc_wr_dat(0x33);
+
+//    // Gate Control
+//    lcdc_wr_cmd(0xb7);
+//    lcdc_wr_dat(0x35);
+//
+//    // ?
+//    lcdc_wr_cmd(0xb8);
+//    lcdc_wr_dat(0x2f);
+//    lcdc_wr_dat(0x2b);
+//    lcdc_wr_dat(0x2f);
+//
+//    // ST7789S Power setting
+//    lcdc_wr_cmd(0xbb);
+//    lcdc_wr_dat(0x15);
+//
+//    lcdc_wr_cmd(0xc0);
+//    lcdc_wr_dat(0x3C);
+//
+//    lcdc_wr_cmd(0xc2);
+//    lcdc_wr_dat(0x01);
+//
+//    lcdc_wr_cmd(0xc3);
+//    lcdc_wr_dat(0x13); // or 0x0b?
+//
+//    lcdc_wr_cmd(0xc4);
+//    lcdc_wr_dat(0x20);
+//
+    if (invert) {
+        lcdc_wr_cmd(0x21); // Display Inversion On (INVON for colors)
+    } else {
+        lcdc_wr_cmd(0x20); //  Display Inversion Off (INVOFF for colors)
+    }
+
+    lcdc_wr_cmd(0xc6);
+    if (tefix == 3)
+        lcdc_wr_dat(0x03); // 0x04, 0x1f
+    else if (tefix == 2)
+        lcdc_wr_dat(0x04);
+    else if (tefix == 1)
+        lcdc_wr_dat(0x03);
+    else
+        lcdc_wr_dat(0x03); // 0x04, 0x1f
+//
+//    lcdc_wr_cmd(0xd0);
+//    lcdc_wr_dat(0xa4);
+//    lcdc_wr_dat(0xa1);
+//
+//    lcdc_wr_cmd(0xe8);
+//    lcdc_wr_dat(0x03);
+//
+//    lcdc_wr_cmd(0xe9);
+//    lcdc_wr_dat(0x0d);
+//    lcdc_wr_dat(0x12);
+//    lcdc_wr_dat(0x00);
+//
+//    // ST7789S gamma setting
+//    lcdc_wr_cmd(0xe0);
+//    lcdc_wr_dat(0x70);
+//    lcdc_wr_dat(0x00);
+//    lcdc_wr_dat(0x06);
+//    lcdc_wr_dat(0x09);
+//    lcdc_wr_dat(0x0b);
+//    lcdc_wr_dat(0x2a);
+//    lcdc_wr_dat(0x3c);
+//    lcdc_wr_dat(0x33);
+//    lcdc_wr_dat(0x4b);
+//    lcdc_wr_dat(0x08);
+//    lcdc_wr_dat(0x16);
+//    lcdc_wr_dat(0x14);
+//    lcdc_wr_dat(0x2a);
+//    lcdc_wr_dat(0x23);
+//
+//    lcdc_wr_cmd(0xe1);
+//    lcdc_wr_dat(0xd0);
+//    lcdc_wr_dat(0x00);
+//    lcdc_wr_dat(0x06);
+//    lcdc_wr_dat(0x09);
+//    lcdc_wr_dat(0x0b);
+//    lcdc_wr_dat(0x29);
+//    lcdc_wr_dat(0x36);
+//    lcdc_wr_dat(0x54);
+//    lcdc_wr_dat(0x4b);
+//    lcdc_wr_dat(0x0d);
+//    lcdc_wr_dat(0x16);
+//    lcdc_wr_dat(0x14);
+//    lcdc_wr_dat(0x28);
+//    lcdc_wr_dat(0x22);
+
+    mdelay(50);
+    lcdc_wr_cmd(0x29);
+    mdelay(50);
+    lcdc_wr_cmd(0x2c);
+    mdelay(100);
+
+    mypar->app_virt->yoffset = 0;
+    memset(mypar->vram_virt, 0, 320*240*4);
+}
 
 static void suniv_fb_addr_init(struct myfb_par *par)
 {
